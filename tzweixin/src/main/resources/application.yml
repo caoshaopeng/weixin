@@ -1,0 +1,41 @@
+server:
+  port: 8080
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  datasource:
+    name: tzweixin_test
+    type: com.alibaba.druid.pool.DruidDataSource
+    #druid相关配置 
+    druid:
+      filters: stat
+      driver-class-name: oracle.jdbc.OracleDriver
+      url: jdbc:oracle:thin:@localhost:1521:YXHTGL
+      username: caoshaopeng
+      password: 123456
+      #配置初始化大小/最小/最大 
+      initial-size: 1
+      min-idle: 1
+      max-active: 300
+      #获取连接等待超时时间 
+      max-wait: 60000 
+      #间隔多久进行一次检测，检测需要关闭的空闲连接 
+      time-between-eviction-runs-millis: 60000
+      #一个连接在池中最小生存的时间 
+      min-evictable-idle-time-millis: 300000
+  #redis:
+  #  database: 0
+  #  host: 123.207.22.150
+  #  port: 6379
+  #  password: 123456 #暂未使用密码
+  #  timeout: 10000
+  #  jedis:       
+  #    pool:
+  #      max-active: 1024
+  #      max-idle: 200
+  #      max-wait: 10000
+mybatis:
+  mapper-locations: classpath:com.njry.mapper/*.xml
+  type-aliases-package: com.njry.model
