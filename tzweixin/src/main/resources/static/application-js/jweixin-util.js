@@ -50,7 +50,8 @@
 			        'menuItem:share:email', // 邮件
 			        'menuItem:readMode', // 阅读模式
 			        'menuItem:originPage' // 原网页
-			        ]
+			        ],
+			share : null
 		}
 		
 		this.options = $.extend({}, defaults, opt);
@@ -60,8 +61,7 @@
 	wxConfig.prototype = {
 		getconfig : function(){
 			var that = this;
-			var test = window.location.href;
-			var url = "/Config/getSignature.do?url="+encodeURIComponent(test);			
+			var url = "/Config/getSignature.do?url="+encodeURIComponent(location.href.split('#')[0]);			
 			
 			$.ajax({
 				type : "post",
@@ -69,6 +69,7 @@
 				url : url,
 				success : function(data){
 					that.setconfig(data);
+					that.ready();
 				}, error : function(){
 					alert("公众号出现故障！");
 				}
@@ -83,24 +84,24 @@
 		        nonceStr: data.others.nonceStr, // 必填，生成签名的随机串
 		        signature: data.others.signature,// 必填，签名，见附录1
 		        jsApiList: that.options.jsApiList // 必填，需要使用的JS接口列表，所有JS接口列表见附录2		        
-		    });
-		    this.ready();
+		    });		    
 		},
 		ready : function(){
 			var that = this;
 			wx.ready(function(){
 				wx.hideMenuItems({
-			      menuList: that.options.hideMenuItems,
-			      success: function (res) {
-			        //alert('已隐藏“阅读模式”，“分享到朋友圈”，“复制链接”等按钮');
-			      },
-			      fail: function (res) {
-			        alert(JSON.stringify(res));
-			      }
-			    }),
-			    wx.onMenuShareTimeline({
-				    
-				})
+			      menuList: that.options.hideMenuItems
+			    })
+			});
+		}, 
+		onMenuShareAppMessage : function(res){
+			wx.ready(function(){		
+				wx.onMenuShareAppMessage($.extend({}, res));
+			});
+		},
+		onMenuShareTimeline : function(res){
+			wx.ready(function(){		
+				wx.onMenuShareTimeline($.extend({}, res));
 			});
 		}
 	}
