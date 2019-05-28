@@ -1,8 +1,8 @@
 ;!(function(window, $){
 	
-	var wxConfig = function(opt){
+	var wxUtil = function(opt){
 		var defaults = {
-			debug : false,
+			debug : true,
 			appId : '',
 			jsApiList : ['checkJsApi',
 		            'onMenuShareTimeline',
@@ -40,17 +40,7 @@
 		            'addCard',
 		            'chooseCard',
 		            'openCard'],
-			hideMenuItems : [ 'menuItem:share:qq', //分享到QQ
-			        'menuItem:share:weiboApp', // 分享到Weibo
-			        'menuItem:favorite', // 收藏
-			        'menuItem:share:QZone', // 分享到 QQ 空间
-			        'menuItem:copyUrl', // 复制链接
-			        'menuItem:openWithQQBrowser', // 在QQ浏览器中打开
-			        'menuItem:openWithSafari', // 在Safari中打开
-			        'menuItem:share:email', // 邮件
-			        'menuItem:readMode', // 阅读模式
-			        'menuItem:originPage' // 原网页
-			        ],
+			hideMenuItems : [],
 			share : null
 		}
 		
@@ -58,7 +48,7 @@
 		this.getconfig();
 	}
 	
-	wxConfig.prototype = {
+	wxUtil.prototype = {
 		getconfig : function(){
 			var that = this;
 			var url = "/Config/getSignature.do?url="+encodeURIComponent(location.href.split('#')[0]);			
@@ -78,7 +68,7 @@
 		setconfig : function(data){
 			var that = this;
 			wx.config({
-		        debug: true, //
+		        debug: that.options.debug, //
 		        appId: data.others.appId, // 必填，公众号的唯一标识
 		        timestamp: data.others.timestamp, // 必填，生成签名的时间戳
 		        nonceStr: data.others.nonceStr, // 必填，生成签名的随机串
@@ -103,9 +93,14 @@
 			wx.ready(function(){		
 				wx.onMenuShareTimeline($.extend({}, res));
 			});
+		},
+		chooseImage : function(res){
+			wx.ready(function(){		
+				wx.chooseImage($.extend({}, res));
+			});
 		}
 	}
 	
-	window.wxConfig = wxConfig;
+	window.wxUtil = wxUtil;
 	
 }(window, $));

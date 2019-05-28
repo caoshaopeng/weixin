@@ -1,8 +1,7 @@
 package com.njry.util.weixinUtil;
 
 import java.util.Date;
-
-import com.njry.message.response.TextMessage;
+import com.njry.model.message.response.TextMessage;
 import com.thoughtworks.xstream.XStream;
 
 public class TextMessageUtil implements BaseMessageUtil<TextMessage> {

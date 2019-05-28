@@ -5,8 +5,8 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.util.Date;
-import com.njry.message.Image;
-import com.njry.message.response.ImageMessage;
+import com.njry.model.message.*;
+import com.njry.model.message.response.ImageMessage;
 import com.thoughtworks.xstream.XStream;
 
 public class ImageMessageUtil implements BaseMessageUtil<ImageMessage> {

@@ -1,6 +1,6 @@
-package com.njry.message.response;
+package com.njry.model.message.response;
 
-import com.njry.message.Voice;
+import com.njry.model.message.Voice;
 
 import lombok.Data;
 

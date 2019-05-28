@@ -5,6 +5,7 @@ import com.njry.model.button.Button;
 import com.njry.model.button.ClickButton;
 import com.njry.model.button.Menu;
 import com.njry.model.button.ViewButton;
+import com.njry.util.HttpRequestHelper;
 
 import net.sf.json.JSONObject;
 
@@ -21,7 +22,7 @@ public class MenuUtil {
 	public static int createMenu(String accessToken,String Menu){
 		int result = Integer.MIN_VALUE;
 		String url = CTRATE_MENU_URL.replaceAll("ACCESS_TOKEN", accessToken);
-		JSONObject json = WeiXinUtil.doPoststr(url, Menu);
+		JSONObject json = HttpRequestHelper.doPoststr(url, Menu);
 		if(json!=null){
 			//从返回的数据包中取数据{"errcode":0,"errmsg":"ok"}
 			result = json.getInt("errcode");
@@ -30,7 +31,7 @@ public class MenuUtil {
 	}
 	
 	public static int delMenu(String access_token) {
-		JSONObject json = WeiXinUtil.doGetstr(DEL_MENU_URL.replaceAll("ACCESS_TOKEN", access_token));
+		JSONObject json = HttpRequestHelper.doGetstr(DEL_MENU_URL.replaceAll("ACCESS_TOKEN", access_token));
 		int result = -1;
 		if(json != null) {
 			result = json.getInt("errcode");

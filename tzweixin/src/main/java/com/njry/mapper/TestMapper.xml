@@ -4,4 +4,7 @@
  	<select id="getUserTest" resultType="java.util.Map">
  		select * from test1
  	</select>
+ 	
+ 	
+ 	
 </mapper>

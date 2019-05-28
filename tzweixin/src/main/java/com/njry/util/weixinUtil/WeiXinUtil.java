@@ -16,6 +16,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import com.njry.model.AccessToken;
 import com.njry.model.wxconfig.Config;
+import com.njry.util.HttpRequestHelper;
 import com.njry.util.RedisUtil;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -44,48 +45,7 @@ public class WeiXinUtil {
 	private static final String APPSECRET="515a5ce30f6766eb155772f572cb0c4d";
 	private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?"
 			+ "grant_type=client_credential&appid=APPID&secret=APPSECRET";
-	/**
-	 * 处理doget请求
-	 * @param url
-	 * @return
-	 */
-	public static JSONObject doGetstr(String url){
-		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpGet httpGet = new HttpGet(url);
-		JSONObject jsonObject = null;
-		try {
-			CloseableHttpResponse response = httpclient.execute(httpGet);
-			HttpEntity entity = response.getEntity();
-			if(entity!=null){
-				String result = EntityUtils.toString(entity);
-				jsonObject = JSONObject.fromObject(result);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return jsonObject;
-		
-	}
-	/**
-	 * 处理post请求
-	 * @param url
-	 * @return
-	 */
-	public static JSONObject doPoststr(String url,String outStr){
-		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpPost httpPost = new HttpPost(url);
-		JSONObject jsonObject = null;
-		try {
-			httpPost.setEntity(new StringEntity(outStr, "utf-8"));
-			CloseableHttpResponse response = httpclient.execute(httpPost);
-			String result = EntityUtils.toString(response.getEntity(),"utf-8");
-		    jsonObject =JSONObject.fromObject(result);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return jsonObject;
-	}
+	
 	
 	/**
 	 * 从接口中获取access_token
@@ -96,7 +56,7 @@ public class WeiXinUtil {
 		Jedis jedis  = RedisUtil.getJedis();
 		AccessToken token = new AccessToken();
 		String url = ACCESS_TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
-		JSONObject json = doGetstr(url);
+		JSONObject json = HttpRequestHelper.doGetstr(url);
 		if(json!=null && json.containsKey("access_token")){
 			token.setAccess_token(json.getString("access_token"));
 			token.setExpires_in(json.getInt("expires_in"));
@@ -130,7 +90,7 @@ public class WeiXinUtil {
 		Jedis jedis = RedisUtil.getJedis();
 		String access_token = WeiXinUtil.getAccess_Token();
 		String urlStr = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="+access_token+"&type=jsapi";
-		JSONObject j_ticket = WeiXinUtil.doGetstr(urlStr);
+		JSONObject j_ticket = HttpRequestHelper.doGetstr(urlStr);
 		String ticket = "";
 		if(j_ticket != null && j_ticket.containsKey("ticket")) {
 			ticket = j_ticket.getString("ticket");

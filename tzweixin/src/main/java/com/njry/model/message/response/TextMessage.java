@@ -1,4 +1,4 @@
-package com.njry.message.response;
+package com.njry.model.message.response;
 import lombok.Data;
 
 @Data
