@@ -1,6 +1,7 @@
 package com.njry.mapper.utilMapper;
 
 import java.util.List;
+import java.util.Map;
 import io.lettuce.core.dynamic.annotation.Param;
 
 public interface UtilMapper {
@@ -17,4 +18,6 @@ public interface UtilMapper {
 	public String getJsApiTicketForData(@Param("appid") String appid);
 	
 	public int updateJsApiTicketForAppid(@Param("JsApiTicket") String JsApiTicket, @Param("appid") String appid);
+	
+	public Map getWxConfigMap(@Param("appid") String appid);
 }

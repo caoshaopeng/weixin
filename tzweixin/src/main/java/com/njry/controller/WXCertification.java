@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.njry.service.utilservice.WeiXinUtilService;
 import com.njry.util.weixinUtil.*;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSONObject;
 
 /**
  * 与微信对接登录验证
@@ -27,6 +28,9 @@ public class WXCertification extends BaseController {
 	
 	@Autowired
 	ImageMessageUtil util;
+	
+	@Autowired
+	WeiXinUtilService weiXinUtilService;
 	
 	@RequestMapping(value = "certification.do", method = RequestMethod.GET)
 	public void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -68,6 +72,9 @@ public class WXCertification extends BaseController {
 			if("1".equals(Content)){
 				TextMessageUtil textMessage = new TextMessageUtil();
 				message = textMessage.initMessage(FromUserName, ToUserName);
+				Map configMap = weiXinUtilService.getWxConfigMap("wxf4275a64ac5d819d");
+				System.out.println(JSONObject.fromObject(configMap).toString());
+				
 			} else if(Content.equals("3")) {
 				message = util.initMessage(FromUserName, ToUserName);
 			} else {

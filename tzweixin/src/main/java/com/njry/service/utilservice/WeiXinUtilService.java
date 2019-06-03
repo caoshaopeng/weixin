@@ -1,5 +1,6 @@
 package com.njry.service.utilservice;
 
+import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,4 +23,7 @@ public interface WeiXinUtilService {
 	
 	//通过appid修改更新JsApiTicket
 	public int updateJsApiTicketForAppid(String JsApiTicket, String appid);
+	
+	//通过appid获取一个config的Map
+	public Map getWxConfigMap(String appid);
 }
