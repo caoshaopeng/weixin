@@ -14,6 +14,8 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
+import org.springframework.stereotype.Component;
+
 import com.njry.model.AccessToken;
 
 import net.sf.json.JSONObject;
@@ -119,7 +121,8 @@ public class UploadUtil {
 	}
 	
 	public static void main(String[] args) {
-		String access_token = WeiXinUtil.getAccess_Token();
+		WeiXinUtil weiXinUtil = new WeiXinUtil();
+		String access_token = weiXinUtil.getAccess_Token();
 		String path = "E:/12.png";
 		try {
 			String mediaId = upload(path, access_token, "image");

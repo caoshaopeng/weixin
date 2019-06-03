@@ -5,12 +5,18 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import com.njry.model.message.*;
 import com.njry.model.message.response.ImageMessage;
 import com.thoughtworks.xstream.XStream;
 
+@Component
 public class ImageMessageUtil implements BaseMessageUtil<ImageMessage> {
 
+	@Autowired
+	WeiXinUtil weiXinUtil;
+	
 	@Override
 	public String messageToxml(ImageMessage imageMessage) {
 		XStream xtream = new XStream();
@@ -38,7 +44,7 @@ public class ImageMessageUtil implements BaseMessageUtil<ImageMessage> {
 	 */
 	public String getmediaId(){
 		String path = "E:/12.png";
-		String accessToken = WeiXinUtil.getAccess_Token();
+		String accessToken = weiXinUtil.getAccess_Token();
 		String mediaId = null;
 		try {
 			mediaId = UploadUtil.upload(path, accessToken, "image");

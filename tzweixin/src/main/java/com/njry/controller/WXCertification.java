@@ -5,9 +5,13 @@ import java.io.PrintWriter;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.njry.service.utilservice.WeiXinUtilService;
 import com.njry.util.weixinUtil.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class WXCertification extends BaseController {
 	
+	@Autowired
+	ImageMessageUtil util;
+	
 	@RequestMapping(value = "certification.do", method = RequestMethod.GET)
 	public void doGet(HttpServletRequest request, HttpServletResponse response) {
 		log.info("微信接入成功！");
@@ -29,6 +36,7 @@ public class WXCertification extends BaseController {
 		String nonce = req.getValue(request, "nonce");
 		String echostr = req.getValue(request, "echostr");
 		PrintWriter pw = null;
+		
 		if(WxCheckHelper.checkSignature(signature, timestamp, nonce)) {
 			try {
 				pw = response.getWriter();
@@ -61,7 +69,6 @@ public class WXCertification extends BaseController {
 				TextMessageUtil textMessage = new TextMessageUtil();
 				message = textMessage.initMessage(FromUserName, ToUserName);
 			} else if(Content.equals("3")) {
-				ImageMessageUtil util = new ImageMessageUtil();
 				message = util.initMessage(FromUserName, ToUserName);
 			} else {
 				TextMessageUtil textMessage = new TextMessageUtil();

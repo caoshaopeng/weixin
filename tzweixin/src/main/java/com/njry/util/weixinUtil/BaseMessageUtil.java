@@ -1,5 +1,7 @@
 package com.njry.util.weixinUtil;
 
+import org.springframework.stereotype.Component;
+
 public interface BaseMessageUtil <T>{
 	/**
 	 * 将回复的信息对象转xml格式给微信

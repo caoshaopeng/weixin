@@ -1,6 +1,9 @@
 package com.njry.util.weixinUtil;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.njry.model.button.Button;
 import com.njry.model.button.ClickButton;
 import com.njry.model.button.Menu;
@@ -9,10 +12,15 @@ import com.njry.util.HttpRequestHelper;
 
 import net.sf.json.JSONObject;
 
+@Component
 public class MenuUtil {
 	private static final String CTRATE_MENU_URL  = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 	
 	private static final String DEL_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN";
+	
+	@Autowired
+	WeiXinUtil weiXinUtil;
+	
 	/**
 	 * 创建菜单
 	 * @param accessToken 
@@ -77,7 +85,9 @@ public class MenuUtil {
 	}
 	
 	public static void main(String[] args) {
-		String accessToken  = WeiXinUtil.getAccess_Token();
+		WeiXinUtil weiXinUtil = new WeiXinUtil();
+		
+		String accessToken  = weiXinUtil.getAccess_Token();
 		String menu = MenuUtil.initMenu();
 		System.out.println(menu);
 		

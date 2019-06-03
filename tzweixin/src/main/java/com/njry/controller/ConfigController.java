@@ -3,6 +3,8 @@ package com.njry.controller;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.njry.model.wxconfig.*;
@@ -12,12 +14,15 @@ import com.njry.util.weixinUtil.WeiXinUtil;
 @Controller
 public class ConfigController extends BaseController {
 	
+	@Autowired
+	WeiXinUtil weiXinUtil;
+	
 	@RequestMapping(value = "/getSignature.do")
 	public void getSignature(HttpServletRequest request, HttpServletResponse response) {
 		String url = req.getValue(request, "url");
 		long timestamp = WeiXinUtil.getTimeStamp();
 		String noncestr = WeiXinUtil.getNonceStr();
-		String jsapi_ticket = WeiXinUtil.getJSApi_Ticket();
+		String jsapi_ticket = weiXinUtil.getJSApi_Ticket();
 		String signature = WeiXinUtil.getSignature(timestamp, noncestr, url, jsapi_ticket);
 		Config config = new Config();
 		config.setAppId(WeiXinUtil.getAPPID());

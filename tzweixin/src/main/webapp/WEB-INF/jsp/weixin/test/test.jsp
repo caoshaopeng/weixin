@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +10,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="微信网页端测试">
 <title>微信网页端测试</title>
-<script type="text/javascript" src="/application-js/jquery-3.2.1.js?f=d"></script>
-<script type="text/javascript" src="/application-js/jquery_lazyload-1.7.2/jquery.lazyload.js?f=d"></script>
-<!-- 移动端样式 -->
-<link rel="stylesheet" type="text/css" href="/amazeui/css/amazeui.css?1=3"/>
-<script type="text/javascript" src="/amazeui/js/amazeui.js?1=3"></script>
-<!-- 微信工具 -->
-<script type="text/javascript" src="/application-js/jweixin-1.4.0.js?1=3"></script>
-<script type="text/javascript" src="/application-js/jweixin-util.js?2=3"></script>
+
+<!-- 公共样式true表示启用，一般为true即可 -->
+<jsp:include page="/WEB-INF/jsp/application_incude/application_incude.jsp">
+	<jsp:param value="true" name="jquery"/>
+	<jsp:param value="true" name="amazeui"/>
+	<jsp:param value="true" name="jweixin"/>
+</jsp:include>
+
 <style type="text/css">
 	.div_1{
 		width: 100%;
