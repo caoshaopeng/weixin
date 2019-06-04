@@ -17,7 +17,7 @@ public interface UtilMapper {
 	
 	public String getJsApiTicketForData(@Param("appid") String appid);
 	
-	public int updateJsApiTicketForAppid(@Param("JsApiTicket") String JsApiTicket, @Param("appid") String appid);
+	public int updateJsApiTicketForAppid(@Param("jsApiTicket") String jsApiTicket, @Param("appid") String appid);
 	
 	public Map getWxConfigMap(@Param("appid") String appid);
 }

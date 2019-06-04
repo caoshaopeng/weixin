@@ -54,8 +54,8 @@ public class WeiXinUtilServiceImpl implements WeiXinUtilService {
 
 	@Transactional
 	@Override
-	public int updateJsApiTicketForAppid(String JsApiTicket, String appid) {
-		int i = utilMapper.updateJsApiTicketForAppid(JsApiTicket, appid) ;
+	public int updateJsApiTicketForAppid(String jsApiTicket, String appid) {
+		int i = utilMapper.updateJsApiTicketForAppid(jsApiTicket, appid) ;
 		return i;
 	}
 

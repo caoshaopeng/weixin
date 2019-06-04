@@ -22,7 +22,7 @@ public class TextMessageUtil implements BaseMessageUtil<TextMessage> {
 		TextMessage text = new TextMessage();
 		text.setToUserName(FromUserName);
 		text.setFromUserName(ToUserName);
-		text.setContent("欢迎关注机械振动工程党支部");
+		text.setContent("测试使用回复！");
 		text.setCreateTime(new Date().getTime());
 		text.setMsgType("text");
 	    return messageToxml(text);

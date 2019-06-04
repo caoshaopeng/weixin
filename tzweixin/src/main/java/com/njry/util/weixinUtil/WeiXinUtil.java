@@ -117,7 +117,7 @@ public class WeiXinUtil {
 		Jedis jedis = RedisUtil.getJedis();
 		String ticket = jedis.get("ticket");
 		if(ticket == null || ticket.equals("")) {
-			ticket = getJsApiTicketForData();
+			ticket = this.getJsApiTicketForData();
 		}
 		RedisUtil.returnResource(jedis);
 		return ticket;
@@ -128,6 +128,7 @@ public class WeiXinUtil {
 	 * @return
 	 */
 	public String getJsApiTicketForData() {
+		System.out.println("从数据库获取");
 		String JsApiTicket = weiXinUtilService.getJsApiTicketForData(APPID);
 		if(JsApiTicket == null || JsApiTicket.equals("")) {
 			JsApiTicket = this.getJSApiTicket();
@@ -148,7 +149,7 @@ public class WeiXinUtil {
 		String ticket = "";
 		if(j_ticket != null && j_ticket.containsKey("ticket")) {
 			//跟上面同理
-			if(weiXinUtilService.updateJsApiTicketForAppid(ticket, APPID) > 0) {
+			if(weiXinUtilService.updateJsApiTicketForAppid(j_ticket.getString("ticket"), APPID) > 0) {
 				ticket = j_ticket.getString("ticket");
 				jedis.set("ticket", ticket);
 				jedis.expire("ticket", 60 * 59 * 2);

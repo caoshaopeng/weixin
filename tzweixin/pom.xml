@@ -11,7 +11,7 @@
 	<groupId>com.njry</groupId>
 	<artifactId>tzweixin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>tzweixin</name>
 	<description>Demo project for Spring Boot</description>
 

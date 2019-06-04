@@ -22,7 +22,7 @@ public interface WeiXinUtilService {
 	public String getJsApiTicketForData(String appid);
 	
 	//通过appid修改更新JsApiTicket
-	public int updateJsApiTicketForAppid(String JsApiTicket, String appid);
+	public int updateJsApiTicketForAppid(String jsApiTicket, String appid);
 	
 	//通过appid获取一个config的Map
 	public Map getWxConfigMap(String appid);
