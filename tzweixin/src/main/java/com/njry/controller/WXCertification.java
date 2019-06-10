@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.njry.service.utilservice.WeiXinUtilService;
-import com.njry.util.weixinUtil.*;
+import com.njry.util.weixinUtil.ImageMessageUtil;
+import com.njry.util.weixinUtil.MessageUtil;
+import com.njry.util.weixinUtil.TextMessageUtil;
+import com.njry.util.weixinUtil.WxCheckHelper;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 

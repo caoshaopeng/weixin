@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.njry.model.wxconfig.*;
+
+import com.njry.model.wxconfig.Config;
 import com.njry.util.weixinUtil.WeiXinUtil;
 
 @RequestMapping(value = "/Config")

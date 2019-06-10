@@ -4,16 +4,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.collections.map.HashedMap;
-
 import com.njry.util.RequestHelper;
 
 import net.sf.json.JSONObject;
 
 public class BaseController {
 	
-	public final String PATH = "weixin/";
+	public final String PATH = "tzweixin/";
 	
 	RequestHelper req = new RequestHelper();
 	
