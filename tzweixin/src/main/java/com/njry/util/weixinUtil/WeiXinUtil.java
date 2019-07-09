@@ -54,15 +54,13 @@ public class WeiXinUtil {
 	 * @return
 	 */
 	public String getAccess_Token(){
-		System.out.println("从缓存中读取");
-		Jedis jedis  = RedisUtil.getJedis();
-		String access_token = jedis.get("access_token");		
-		System.out.println("从缓存中读取结束");
-		if(access_token==null || access_token.isEmpty()){
-			//从数据库中获取
-			access_token = this.getAccessTokenForData();
-		}
-		RedisUtil.returnResource(jedis);
+		/*
+		 * System.out.println("从缓存中读取"); Jedis jedis = RedisUtil.getJedis(); String
+		 * access_token = jedis.get("access_token"); System.out.println("从缓存中读取结束");
+		 * if(access_token==null || access_token.isEmpty()){ //从数据库中获取 access_token =
+		 * this.getAccessTokenForData(); } RedisUtil.returnResource(jedis);
+		 */
+		String access_token = this.getAccessTokenForData();
 		return access_token;
 	}
 	
@@ -87,7 +85,7 @@ public class WeiXinUtil {
 	 */
 	public AccessToken getAccessToken(){
 		System.out.println("从接口中获取");
-		Jedis jedis  = RedisUtil.getJedis();
+		//Jedis jedis  = RedisUtil.getJedis();
 		AccessToken token = new AccessToken();
 		String url = ACCESS_TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
 		JSONObject json = HttpRequestHelper.doGetstr(url);
@@ -96,15 +94,15 @@ public class WeiXinUtil {
 			if(weiXinUtilService.insertAccessToken(json.getString("access_token"), EXPIRED_TIME, APPID) > 0) {
 				token.setAccess_token(json.getString("access_token"));
 				token.setExpires_in(json.getInt("expires_in"));
-				jedis.set("access_token", json.getString("access_token"));
-				jedis.expire("access_token", 60*59*2);//60*60*2为两小时
+				//jedis.set("access_token", json.getString("access_token"));
+				//jedis.expire("access_token", 60*59*2);//60*60*2为两小时
 			}
 		} else {
 			token.setAccess_token("");
 			token.setExpires_in(0);
 			log.info("错误信息："+json.getString("errmsg")+"错误码："+json.getString("errcode"));
 		}
-		RedisUtil.returnResource(jedis);
+		//RedisUtil.returnResource(jedis);
 		return token;
 	}
 	
@@ -114,12 +112,12 @@ public class WeiXinUtil {
 	 */
 	public String getJSApi_Ticket() {
 		System.out.println("从缓存获取jsapiticket");
-		Jedis jedis = RedisUtil.getJedis();
-		String ticket = jedis.get("ticket");
-		if(ticket == null || ticket.equals("")) {
-			ticket = this.getJsApiTicketForData();
-		}
-		RedisUtil.returnResource(jedis);
+		/*
+		 * Jedis jedis = RedisUtil.getJedis(); String ticket = jedis.get("ticket");
+		 * if(ticket == null || ticket.equals("")) { ticket =
+		 * this.getJsApiTicketForData(); } RedisUtil.returnResource(jedis);
+		 */
+		String ticket = this.getJsApiTicketForData();
 		return ticket;
 	}
 	
@@ -142,7 +140,7 @@ public class WeiXinUtil {
 	 */
 	public String getJSApiTicket() {
 		System.out.println("从公众号获取jsapiticket");
-		Jedis jedis = RedisUtil.getJedis();
+		//Jedis jedis = RedisUtil.getJedis();
 		String access_token = this.getAccess_Token();
 		String urlStr = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="+access_token+"&type=jsapi";
 		JSONObject j_ticket = HttpRequestHelper.doGetstr(urlStr);
@@ -151,11 +149,11 @@ public class WeiXinUtil {
 			//跟上面同理
 			if(weiXinUtilService.updateJsApiTicketForAppid(j_ticket.getString("ticket"), APPID) > 0) {
 				ticket = j_ticket.getString("ticket");
-				jedis.set("ticket", ticket);
-				jedis.expire("ticket", 60 * 59 * 2);
+				//jedis.set("ticket", ticket);
+				//jedis.expire("ticket", 60 * 59 * 2);
 			}
 		}
-		RedisUtil.returnResource(jedis);
+		//RedisUtil.returnResource(jedis);
 		return ticket;
 	}
 	

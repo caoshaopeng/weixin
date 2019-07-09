@@ -11,7 +11,7 @@ import net.sf.json.JSONObject;
 
 public class BaseController {
 	
-	public final String PATH = "tzweixin/";
+	public final String PATH = "weixin/";
 	
 	RequestHelper req = new RequestHelper();
 	
