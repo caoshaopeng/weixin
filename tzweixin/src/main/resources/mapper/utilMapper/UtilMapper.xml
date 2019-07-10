@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.njry.mapper.utilMapper.UtilMapper" >
+ 	
+ 	<insert id="insertAccessToken" parameterType="java.lang.String">
+ 		insert into t_wx_config
+		  (appid
+		  ,accesstoken
+		  ,acc_expired_time
+		  ,jsapi_expired_time
+		  ,rec_date)
+		values
+		  (#{appid}, #{accessToken}, #{time}, 7200, sysdate)
+ 	</insert>
+ 	
+ 	<select id="getAccessToken" parameterType="java.lang.String" resultType="java.lang.String">
+ 		select accesstoken
+		  from t_wx_config
+		 where appid = #{appid} and
+       	rec_date > sysdate - acc_expired_time / 24 / 60 / 60
+ 	</select>
+ 	
+ 	<select id="getAccessTokenFlag" parameterType="java.lang.String" resultType="java.lang.String">
+ 		select appid
+		  from t_wx_config
+		 where appid = #{appid}
+ 	</select>
+ 	
+ 	<update id="updateAccessTokenForAppid" parameterType="java.lang.String">
+ 		update t_wx_config a
+		  set a.accesstoken = #{accesstoken}, rec_date = sysdate
+		where appid = #{appid}
+ 	</update>
+ 	
+ 	<select id="getJsApiTicketForData" parameterType="java.lang.String" resultType="java.lang.String">
+ 		select jsapiticket
+		  from t_wx_config
+		 where appid = #{appid} and
+       	jsapi_rec_date > sysdate - jsapi_expired_time / 24 / 60 / 60
+ 	</select>
+ 	
+ 	<update id="updateJsApiTicketForAppid" parameterType="java.lang.String">
+ 		update t_wx_config a
+		  set a.jsapiticket = #{jsApiTicket}, jsapi_rec_date = sysdate
+		where appid = #{appid}
+ 	</update>
+ 	
+ 	<select id="getWxConfigMap" parameterType="java.lang.String" resultType="java.util.Map">
+ 		select a.*
+	      ,to_char(a.rec_date, 'yyyy-MM-dd HH24:mi:ss') rec_date_str
+	      ,to_char(a.jsapi_rec_date, 'yyyy-MM-dd HH24:mi:ss') jsapi_rec_date_str
+	    from t_wx_config a
+	    where appid = #{appid}
+ 	</select>
+ 	
+</mapper>
