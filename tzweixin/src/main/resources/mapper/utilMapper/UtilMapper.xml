@@ -11,6 +11,7 @@
 		  ,rec_date)
 		values
 		  (#{appid}, #{accessToken}, #{time}, 7200, sysdate)
+		  
  	</insert>
  	
  	<select id="getAccessToken" parameterType="java.lang.String" resultType="java.lang.String">
