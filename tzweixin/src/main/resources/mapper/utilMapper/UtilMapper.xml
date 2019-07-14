@@ -10,7 +10,7 @@
 		  ,jsapi_expired_time
 		  ,rec_date)
 		values
-		  (#{appid}, #{accessToken}, #{time}, 7200, sysdate)
+		  (#{appid}, #{accessToken}, #{time}, 7200, sysdate())
 		  
  	</insert>
  	
@@ -18,7 +18,7 @@
  		select accesstoken
 		  from t_wx_config
 		 where appid = #{appid} and
-       	rec_date > sysdate - acc_expired_time / 24 / 60 / 60
+       	rec_date > sysdate() - acc_expired_time / 24 / 60 / 60
  	</select>
  	
  	<select id="getAccessTokenFlag" parameterType="java.lang.String" resultType="java.lang.String">
@@ -29,7 +29,7 @@
  	
  	<update id="updateAccessTokenForAppid" parameterType="java.lang.String">
  		update t_wx_config a
-		  set a.accesstoken = #{accesstoken}, rec_date = sysdate
+		  set a.accesstoken = #{accesstoken}, rec_date = sysdate()
 		where appid = #{appid}
  	</update>
  	
@@ -37,12 +37,12 @@
  		select jsapiticket
 		  from t_wx_config
 		 where appid = #{appid} and
-       	jsapi_rec_date > sysdate - jsapi_expired_time / 24 / 60 / 60
+       	jsapi_rec_date > sysdate() - jsapi_expired_time / 24 / 60 / 60
  	</select>
  	
  	<update id="updateJsApiTicketForAppid" parameterType="java.lang.String">
  		update t_wx_config a
-		  set a.jsapiticket = #{jsApiTicket}, jsapi_rec_date = sysdate
+		  set a.jsapiticket = #{jsApiTicket}, jsapi_rec_date = sysdate()
 		where appid = #{appid}
  	</update>
  	

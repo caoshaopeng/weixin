@@ -11,10 +11,14 @@ spring:
     #druid相关配置 
     druid:
       filters: stat
-      driver-class-name: oracle.jdbc.OracleDriver
-      url: jdbc:oracle:thin:@localhost:1521:YXHTGL
+     # driver-class-name: oracle.jdbc.OracleDriver
+     # url: jdbc:oracle:thin:@localhost:1521:YXHTGL
+     # username: caoshaopeng
+     # password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+      url : jdbc:mysql://123.207.22.150:3306/weixin?useUnicode=true&characterEncoding=UTF-8
       username: caoshaopeng
-      password: 123456
+      password: abcdefg1996
       #配置初始化大小/最小/最大 
       initial-size: 1
       min-idle: 1
